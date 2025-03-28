@@ -1,25 +1,13 @@
-<<<<<<< HEAD
-# ±‚∫ª ¿ÃπÃ¡ˆ∑Œ OpenJDK ªÁøÎ
-=======
-# ÔøΩ‚∫ª ÔøΩÃπÔøΩÔøΩÔøΩÔøΩÔøΩ OpenJDK ÔøΩÔøΩÔøΩ
->>>>>>> 9126a2fea62b7070b84aa7351a7d63b26a4a1b3b
+# Í∏∞Î≥∏ Ïù¥ÎØ∏ÏßÄÎ°ú OpenJDK ÏÇ¨Ïö©
 FROM openjdk:11-jdk-slim
 
 ARG JAR_FILE=build/libs/*.jar
 ARG PROFILES
 ARG ENV
 
-<<<<<<< HEAD
-# ∫ÙµÂµ» JAR ∆ƒ¿œ¿ª ƒ¡≈◊¿Ã≥ ø° ∫πªÁ
+# ÎπåÎìúÎêú JAR ÌååÏùºÏùÑ Ïª®ÌÖåÏù¥ÎÑàÏóê Î≥µÏÇ¨
 COPY ${JAR_FILE} app.jar
 
-# Spring Boot æ÷«√∏Æƒ…¿Ãº« Ω««‡
+# Spring Boot Ïï†ÌîåÎ¶¨ÏºÄÏù¥ÏÖò Ïã§Ìñâ
 ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILES}", "-Dserver.env=${ENV}","-jar","app.jar"]
 
-=======
-# ÔøΩÔøΩÔøΩÔøΩÔøΩ JAR ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÃ≥ øÔøΩ ÔøΩÔøΩÔøΩÔøΩ
-COPY ${JAR_FILE} app.jar
-
-# Spring Boot ÔøΩÔøΩÔøΩ√∏ÔøΩÔøΩÔøΩÔøΩÃºÔøΩ ÔøΩÔøΩÔøΩÔøΩ
-ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILES}", "-Dserver.env=${ENV}","-jar","app.jar"]
->>>>>>> 9126a2fea62b7070b84aa7351a7d63b26a4a1b3b
