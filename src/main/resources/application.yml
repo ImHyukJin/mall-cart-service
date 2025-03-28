@@ -65,6 +65,7 @@ spring:
     url: jdbc:mysql://mallmysql.cpcauwygsgm8.ap-northeast-2.rds.amazonaws.com:3306/mall_cart #ec2 환경변수
     username: admin
     password: aaaa1111
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update  # 테이블 자동 업데이트
