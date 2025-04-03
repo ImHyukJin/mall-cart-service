@@ -40,6 +40,7 @@ public class HealthCheckController {
 		responseData.put("serverPort", serverPort);
 		responseData.put("serverAddress", serverAddress);
 		responseData.put("serverName", serverName);
+		responseData.put("TEST", "TEST 성공");
 		return ResponseEntity.ok(responseData);
 	}
 	
@@ -48,14 +49,14 @@ public class HealthCheckController {
 		return ResponseEntity.ok(env);
 	}
 	 // 장바구니 추가
-    @PostMapping
+    @PostMapping("/")
     public String addToCart(@RequestBody Cart cart) {
         Cart savedCart = cartRepository.save(cart); // JPA 저장
         return "장바구니에 추가됨! ID: " + savedCart.getCartId();
     }
 
     // 장바구니 목록 조회
-    @GetMapping
+    @GetMapping("/")
     public List<Cart> getAllCarts() {
         return cartRepository.findAll(); // JPA 조회
     }
