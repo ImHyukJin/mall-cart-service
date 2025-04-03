@@ -1,65 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Management</title>
+  <title>Cart Management</title>
   <script>
-    // 상품 목록을 API에서 가져오는 함수
-    function loadProducts() {
-      fetch('/api/product/')
+    // 장바구니 목록 불러오기
+    function loadCart() {
+      fetch('/api/cart')
         .then(response => response.json())
         .then(data => {
-          const productList = document.getElementById("productList");
-          productList.innerHTML = "";
-          data.forEach(product => {
+          const cartList = document.getElementById("cartList");
+          cartList.innerHTML = "";
+          data.forEach(cart => {
             const listItem = document.createElement("li");
-            listItem.textContent = `ID: ${product.id}, Name: ${product.name}, Price: ${product.price}`;
-            productList.appendChild(listItem);
+            listItem.textContent = `ID: ${cart.cartId}, 상품ID: ${cart.productId}, 수량: ${cart.quantity}, 옵션: ${cart.option1}, 상태: ${cart.status}`;
+            cartList.appendChild(listItem);
           });
-        });
+        })
+        .catch(error => console.error('장바구니 불러오기 실패:', error));
     }
 
-    // 새로운 상품을 추가하는 함수
-    function addProduct() {
-      const name = document.getElementById("productName").value;
-      const price = document.getElementById("productPrice").value;
-      
-      const product = {
-        name: name,
-        price: parseFloat(price)
+    // 장바구니에 상품 추가
+    function addToCart() {
+      const productId = document.getElementById("productId").value;
+      const quantity = document.getElementById("quantity").value;
+      const option1 = document.getElementById("option1").value;
+
+      const cartItem = {
+        productId: parseInt(productId),
+        quantity: parseInt(quantity),
+        option1: option1,
+        status: "ACTIVE"
       };
 
-      fetch('/api/product/', {
+      fetch('/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(product)
+        body: JSON.stringify(cartItem)
       })
-      .then(response => response.json())
-      .then(data => {
-        loadProducts(); // 상품 추가 후 목록 갱신
-        alert('상품이 추가되었습니다!');
+      .then(response => response.text())
+      .then(message => {
+        alert(message);
+        loadCart(); // 추가 후 목록 갱신
       })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      .catch(error => console.error('장바구니 추가 실패:', error));
     }
 
-    // 페이지 로드 시 상품 목록을 가져오는 함수 실행
-    window.onload = loadProducts;
+    // 페이지 로드 시 장바구니 목록 불러오기
+    window.onload = loadCart;
   </script>
 </head>
 <body>
-  <h1>Cart Management</h1>
+  <h1>장바구니 관리</h1>
   
-  <h2>상품 목록</h2>
-  <ul id="productList"></ul>
+  <h2>🛒 장바구니 목록</h2>
+  <ul id="cartList"></ul>
   
-  <h2>새 상품 추가</h2>
-  <input type="text" id="productName" placeholder="상품 이름" />
-  <input type="number" id="productPrice" placeholder="가격" />
-  <button onclick="addProduct()">상품 추가</button>
+  <h2>➕ 장바구니에 상품 추가</h2>
+  <input type="number" id="productId" placeholder="상품 ID" required />
+  <input type="number" id="quantity" placeholder="수량" required />
+  <input type="text" id="option1" placeholder="옵션" />
+  <button onclick="addToCart()">추가</button>
 </body>
 </html>
