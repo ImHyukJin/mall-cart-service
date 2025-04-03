@@ -3,6 +3,8 @@ package com.dmall.cartservice.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,16 @@ public class CartApiController {
 	
 	@Autowired
 	private CartRepository cartRepository ;
+	
+	//healthcheck
+	@Value("${server.env}")
+	private String env;
+	
+	@GetMapping("/env")
+	public ResponseEntity<?> getEnv() {
+		return ResponseEntity.ok(env);
+	}
+	//////////////////////////////////////////////
 	
 	 // 장바구니 추가
     @PostMapping
